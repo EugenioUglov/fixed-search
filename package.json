@@ -1,0 +1,46 @@
+{
+  "name": "fixed-search",
+  "version": "1.0.0",
+  "description": "Fixed position search bar component with bootstrapper, controller and view classes",
+  "main": "index.js",
+  "module": "index.mjs",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "default": "./index.js"
+    },
+    "./dist/*": "./dist/*"
+  },
+  "files": [
+    "index.js",
+    "index.mjs",
+    "bootstrapper.mjs",
+    "fixedSearchController.mjs",
+    "fixedSearchView.mjs",
+    "src/",
+    "dist/",
+    "index.d.ts",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "node build.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "search",
+    "fixed-search",
+    "bootstrap",
+    "ui-component"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/your-repo/fixed-search/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-repo/fixed-search.git"
+  }
+}
