@@ -1,17 +1,19 @@
+const ProjectAssetLoader = require('project-asset-loader');
 const FixedSearchView = require('./fixedSearchView');
 const FixedSearchController = require('./fixedSearchController');
 
 class FixedSearchBootstrapper {
-    constructor({ projectAssetLoader, targetId, basePath }) {
+    constructor({ targetId, basePath }) {
+        this.assetLoader = new ProjectAssetLoader();
         this.basePath = basePath || FEATURE_BASE_PATH;
-        return this.init({ projectAssetLoader, targetId });
+        return this.init({ targetId });
     }
 
-    async init({ projectAssetLoader, targetId }) {
-        projectAssetLoader.setBasePath({ path: this.basePath });
+    async init({ targetId }) {
+        this.assetLoader.setBasePath({ path: this.basePath });
 
-        const cssPromise = projectAssetLoader.loadStyle({ path: 'style.css' });
-        const htmlPromise = projectAssetLoader.loadMustacheHtmlToDomElementById({
+        const cssPromise = this.assetLoader.loadStyle({ path: 'fixed-search.css' });
+        const htmlPromise = this.assetLoader.loadMustacheHtmlToDomElementById({
             targetId,
             pathHtml: 'index.mustache',
         });

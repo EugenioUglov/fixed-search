@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fixed-search — Browser Test</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        #search-container {
+            margin: 20px 0;
+        }
+        #test-output {
+            margin-top: 40px;
+            padding: 15px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        .log { margin: 4px 0; }
+        .pass { color: green; }
+        .fail { color: red; }
+        .info { color: #666; }
+    </style>
+</head>
+<body>
+
+    <h1>fixed-search — Browser Test</h1>
+
+    <p>
+        This page tests the <code>fixed-search</code> npm package in the browser.<br>
+        Open the browser DevTools Console to see detailed test results.
+    </p>
+
+    <!-- Target container for the search component -->
+    <div id="search-container"></div>
+
+    <!-- 1. Load project-asset-loader (mock for testing, or real package in production) -->
+    <script src="./test-project-asset-loader.js"></script>
+
+    <!-- 2. Load fixed-search UMD build -->
+    <script src="../dist/fixed-search.umd.js"></script>
+
+    <!-- 3. Run tests -->
+    <script src="./test.js"></script>
+
+    <div id="test-output"></div>
+
+</body>
+</html>

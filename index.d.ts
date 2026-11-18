@@ -2,15 +2,7 @@
  * TypeScript declarations for fixed-search
  */
 
-export interface ProjectAssetLoader {
-    setBasePath: (opts: { path: string }) => void;
-    loadStyle: (opts: { path: string }) => Promise<void>;
-    loadMustacheHtmlToDomElementById: (opts: { targetId: string; pathHtml: string }) => Promise<void>;
-    loadJavaScript: (opts: { path: string }) => Promise<void>;
-}
-
 export interface FixedSearchBootstrapperOptions {
-    projectAssetLoader: ProjectAssetLoader;
     targetId: string;
     basePath?: string;
 }
@@ -46,7 +38,7 @@ export class FixedSearchController {
 
 export class FixedSearchBootstrapper {
     constructor(opts: FixedSearchBootstrapperOptions);
-    init(opts: { projectAssetLoader: ProjectAssetLoader; targetId: string }): Promise<FixedSearchController>;
+    init(opts: { targetId: string }): Promise<FixedSearchController>;
 }
 
 export default FixedSearchBootstrapper;

@@ -9,6 +9,10 @@ class FixedSearchView {
     }
 
     #domContainer;
+    #enterHandler;
+    #clickBtnClearHandler;
+    #keyUpHandler;
+    #inputHandler;
 
     show() {
         this.#domContainer.style.display = 'block';
@@ -47,56 +51,31 @@ class FixedSearchView {
     }
 
     bindEnter(handler) {
-        const container = this.#domContainer;
-        const inputField = container.querySelector('#searchInputField');
-
-        container.querySelector('#btnSearch').addEventListener('click', () => { 
-            this.#handleEnter(handler);
-        });
-
-        inputField.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') { // e.code === 'Enter' / e.keyCode === 13
-                this.#handleEnter(handler);
-            }
-        });
+        this.#enterHandler = handler;
     }
     
     bindClickBtnClear(handler) {
-        const container = this.#domContainer;
-
-        container.querySelector('#btnClear').addEventListener('click', () => {
-            this.#handleBtnClearClick(handler)
-        });
+        this.#clickBtnClearHandler = handler;
     }
 
     bindKeyUp(handler) {
-        const container = this.#domContainer;
-
-        container.querySelector('#searchInputField').addEventListener('keyup', function(e) {
-            const request = container.querySelector('#searchInputField').value;
-            handler(request, e.keyCode);
-        });
+        this.#keyUpHandler = handler;
     }
 
     bindInput(handler) {
-        const container = this.#domContainer;
-
-        container.querySelector('#searchInputField').addEventListener('input', function(e) {
-            const request = container.querySelector('#searchInputField').value;
-            handler(request, e.keyCode);
-        });
+        this.#inputHandler = handler; 
     }
 
-    #handleEnter(handler) {
-        this.setTextColorInInputField('black'); 
-        handler();
+    #handleEnter() {
+        this.#enterHandler?.();
+        this.setTextColorInInputField('black');
     }
     
-    #handleBtnClearClick(handler) {
+    #handleBtnClearClick() {
         const container = this.#domContainer;
 
+        this.#clickBtnClearHandler?.();
         this.clear();
-        handler();
         container.querySelector("#searchInputField").focus();
     }
 
@@ -105,7 +84,34 @@ class FixedSearchView {
         const inputField = container.querySelector('#searchInputField');
         const fixedSearchWrapper = container.querySelector('#fixedSearchWrapper');
 
-        inputField.addEventListener('input', function(e) {
+        container.querySelector('#searchInputField').addEventListener('input', (e) => {
+            const request = container.querySelector('#searchInputField').value;
+            
+            this.#inputHandler?.(request, e.keyCode);
+            // handler(request, e.keyCode);
+        });
+
+        container.querySelector('#searchInputField').addEventListener('keyup', (e) => {
+            const request = container.querySelector('#searchInputField').value;
+            this.#keyUpHandler?.(request, e.keyCode);
+            // handler(request, e.keyCode);
+        });
+
+        container.querySelector('#btnClear').addEventListener('click', () => {
+            this.#handleBtnClearClick();
+        });
+
+        container.querySelector('#btnSearch').addEventListener('click', () => { 
+            this.#handleEnter();
+        });
+
+        inputField.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') { // e.code === 'Enter' / e.keyCode === 13
+                this.#handleEnter();
+            }
+        });
+
+        inputField.addEventListener('input', (e) => {
             inputField.style.color = 'gray';
         });
         
@@ -115,13 +121,13 @@ class FixedSearchView {
             fixedSearchWrapper.style.mozBoxShadow = "0px 0px 5px 2px #4285f4";
         };
         
-        inputField.addEventListener('focusout', function() {
+        inputField.addEventListener('focusout', () => {
             fixedSearchWrapper.style.boxShadow = null;
             fixedSearchWrapper.style.webkitBoxShadow = null;
             fixedSearchWrapper.style.mozBoxShadow = null;
         });
 
-        container.querySelector("#btnSearch").addEventListener('click', function() {
+        container.querySelector("#btnSearch").addEventListener('click', () => {
             inputField.focus();
         });
         

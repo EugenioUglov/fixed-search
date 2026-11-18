@@ -20,7 +20,6 @@ npm install fixed-search
 import FixedSearchBootstrapper from 'fixed-search';
 
 const controller = await new FixedSearchBootstrapper({
-    projectAssetLoader: myAssetLoader,
     targetId: 'search-container',
     basePath: '/node_modules/fixed-search/dist/', // optional
 });
@@ -36,7 +35,6 @@ controller.bindEnter((request) => {
 const FixedSearchBootstrapper = require('fixed-search');
 
 const controller = await new FixedSearchBootstrapper({
-    projectAssetLoader: myAssetLoader,
     targetId: 'search-container',
 });
 
@@ -51,7 +49,6 @@ controller.setText('initial query');
 <script src="/path/to/fixed-search.umd.js"></script>
 <script>
     const bootstrapper = new window.FixedSearchBootstrapper({
-        projectAssetLoader: myAssetLoader,
         targetId: 'search-container',
     });
 
@@ -79,7 +76,7 @@ The package includes static files in `dist/`:
 - `dist/index.mustache` — HTML template
 - `dist/icons/` — icons (search.png, x.png, x-fat.png)
 
-Your `projectAssetLoader` must be able to load these files using the specified `basePath`.
+Your `basePath` should point to the `dist/` folder where `fixed-search.css` and `index.mustache` are located.
 
 ## Development
 
@@ -89,7 +86,18 @@ All source files are in `src/`. After making changes, run:
 npm run build
 ```
 
-This generates all distribution formats (`index.js`, `index.mjs`, `*.mjs`, `dist/fixed-search.umd.js`) from the source in `src/`.
+This generates all distribution formats (`index.js`, `index.mjs`, `dist/fixed-search.umd.js`) from the source in `src/`.
+
+## Browser Tests
+
+A test page is included in `test/`. To run it:
+
+1. Build the package: `npm run build`
+2. Serve the folder (e.g., with `npx serve` or `python -m http.server`)
+3. Open `http://localhost:8000/test/index.html` in your browser
+4. Open DevTools Console to see test results
+
+The test page includes a mock `project-asset-loader` so it works without installing the real package.
 
 
 ## Support ☕🤗
