@@ -1,0 +1,17 @@
+<div id="search-container"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/project-asset-loader@latest/dist/project-asset-loader.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fixed-search@1.0.0/dist/fixed-search.umd.js"></script>
+
+<script>
+    const bootstrapper = new window.fixedSearch.FixedSearchBootstrapper({
+        targetId: 'search-container',
+        basePath: 'https://cdn.jsdelivr.net/npm/fixed-search@1.0.0/dist/',
+    });
+
+    bootstrapper.then(controller => {
+        controller.bindEnter((request) => {
+            console.log('Search:', request);
+        });
+    });
+</script>
